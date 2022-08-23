@@ -1,0 +1,27 @@
+/* POST_LIST */
+.link{
+	text-decoration: none;
+	color: black;
+}
+#img{
+	height: 200px;
+}
+
+/*inner animation*/
+.inner{
+  overflow: hidden;
+}
+
+.inner img{
+  transition: all 1.5s ease;
+}
+
+.inner:hover img{
+  transform: scale(1.5);
+}
+
+#profile-img
+{
+  width: 50px;
+  clip-path: circle();
+}

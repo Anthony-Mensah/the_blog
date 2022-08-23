@@ -1,0 +1,30 @@
+{% extends "users/base.html" %}
+{% load crispy_forms_tags %}
+<!-- BLOCK TITLE -->
+{% block title %}
+	The Blog | Regsiter
+{% endblock %}
+
+<!-- BLOCK CONTENT -->
+{% block content %}
+<div class="card shadow form mx-auto">
+	<div class="p-3">
+		<form method="POST">
+			{% csrf_token %}
+			<fieldset class="form-group">
+				<legend class="border-bottom-mb-4 text-center h3">Register</legend>
+				{{ r_form|crispy}}
+			</fieldset>
+			<div class="form-group mt-2">
+				<button class="btn btn-primary" type="submit">Register</button>
+			</div>
+			<div class="border-top p-3 mt-2 ">
+				<small class="">Already Have An Account? <a class="ml-2 btn btn-primary" href=" {% url 'login' %} ">Log In</a>
+				</small>
+			</div>
+	</form>
+	</div>
+	
+</div>
+	
+{% endblock content %}

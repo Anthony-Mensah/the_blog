@@ -1,0 +1,106 @@
+{% extends 'Posts/base.html' %}
+{% block title %}
+The Blog | {{post.title}}
+{% endblock %}
+<!-- POST DETAIL -->
+ {% block detail %}
+<header class="mb-4 mt-5 pt-4">
+    <!-- Post title-->
+    <h1 class="fw-bolder mb-1">{{post.title}}</h1>
+    <!-- Post meta content-->
+    <div class="text-muted fst-italic mb-2">
+        <img id="profile-img" class="img-fluid rounded-start" src="{{post.author.profile.image.url}}" alt="shoe"> Posted on January 1, 2022 by <a href="{% url 'user-post' post.author.username %}" class="text-decoration-none">{{post.author}}</a></div>
+    <!-- Post categories-->
+    <div class="">
+    <!-- Social media-->
+    <!-- if statement -->
+    {% if post.author.profile.twitter_url %}
+    <a href=" {{post.author.profile.twitter}} " target="_blank" class="card-link"
+        ><i class="fab fa-twitter text-primary  h4"></i
+        ></a>
+    {% endif %}
+    <!-- instagram-->
+    {% if post.author.profile.instagram_url %}
+    <a href=" {{post.author.profile.instagram}} " target="_blank" class="card-link"
+        ><i class="fab fa-instagram text-danger h4"></i
+        ></a>
+    {% endif %}
+    <!-- Facebook-->
+    {% if post.author.profile.facebook_url %}
+    <a href=" {{post.author.profile.facebook}} " target="_blank" class="card-link"
+        ><i class="fab fa-facebook text-primary h4"></i
+        ></a>
+        <div>
+    {% endif %}
+        <a class="badge bg-primary text-decoration-none link-light" href="{% url 'post-category' post.category.name %}">{{post.category.name}}</a>
+
+        </div>
+
+    </div>
+
+
+</header>
+<!-- Preview image figure-->
+    <figure class="mb-4"><img class="img-fluid rounded" src="{{post.image.url}}" alt="..." /></figure>
+     <!-- Post content-->
+<section class="mb-5">
+    <p class="fs-5 mb-4">{{post.content}}</p>
+    {% if post.author == request.user %}
+    <a class="btn btn-outline-primary" href="{% url 'update-post' post.id %}">Update</a>
+    <a class="btn btn-outline-danger" href="{% url 'delete-post' post.id %}">Delete</a>
+    {% endif %}
+</section>
+ <!-- Comments section-->
+<section class="mb-5">
+    <div class="card bg-light">
+        <div class="card-body">
+            <!-- Comment -->
+            <a class="btn btn-outline-secondary" href="{% url 'comment' post.id %}">Leave a comment</a>
+            {% if not post.comments.all %}
+            <p>No comments</p>
+            {% else %}
+            {% for comment in post.comments.all %}
+            <div class="p-1">
+              <h6>{{comment.commentor_name}} | <span class="text-muted"> {{comment.dateCommented}} </span> </h6>
+              {{comment.context}}
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+<!-- SIDEBAR -->
+{% block sidebar %}
+<!-- Search widget-->
+<div class="mt-5 ">
+<div class="card mb-4 mt-3">
+    <div class="card-header">Search</div>
+    <div class="card-body">
+        <form method='POST' action="{% url 'search' %}">
+            {% csrf_token %}
+           <div class="input-group">
+            <input class="form-control" name="search" type="search" placeholder="Search by title" aria-label="Enter search term..." aria-describedby="button-search" />
+            <button class="btn btn-primary" id="button-search" type="submit">Go!</button>
+        </div>
+        </form>
+
+    </div>
+</div>
+</div>
+
+<!-- Side widget-->
+<div class="card mb-4">
+    <div class="card-header">Be Motivated</div>
+    <div class="card-body">Deu 31:8 "The LORD is indeed going before you – he will be with you; he will not fail you or abandon you. Do not be afraid or discouraged!”</div>
+</div>
+{% endblock %}
+
+
+<!-- FOOTER -->
+{% block footer %}
+<footer class="py-5 bg-dark">
+        <div class="container"><p class="m-0 text-center text-white">Copyright &copy; THE BLOG 2022</p></div>
+</footer>
+{% endblock %}

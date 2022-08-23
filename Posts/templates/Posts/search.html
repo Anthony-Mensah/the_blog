@@ -1,0 +1,19 @@
+{% extends 'Posts/base.html' %}
+<!-- SEARCHED RESULTS -->
+{% block detail %}
+	{% if search_name %}
+	<div class="mt-5">
+		<h3 class="alert alert-primary">Results for "{{search_name}}"</h3>
+	</div>
+		<!-- LOOPING THOURGH THE RESULTS -->
+		{% if posts %}
+			{% for search in posts %}
+				<ul>
+					<li> <a class="link h5" href="{% url 'post-detail' search.id %}">{{search.title}}</a></li>
+				</ul>
+			{% endfor %}
+		{% else %}
+			<p>No results found</p>
+		{% endif %}
+	{% endif %}
+{% endblock detail %}

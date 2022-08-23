@@ -1,0 +1,60 @@
+{% extends "users/base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}
+The Blog | Profile
+{% endblock %}
+
+{% block content %}
+	<section>
+      <div class="container">
+      	<div class="row">
+      		<div class="col-md-4 col-sm-12 text-center">
+            <div class="card shadow bg-light">
+		      <div class="card-body text-center">
+		        <img
+		          id="profileCard"
+		          src=" {{user.profile.image.url}} "
+		          alt="profileImage"
+		        />
+		        <h3 class="card-title">{{user.username}}</h3>
+		        <p class="card-text">
+		          {{user.profile.bio}}
+		        </p>
+		        <a href=" {{user.profile.twitter}} " target="_blank" class="card-link"
+		          ><i class="fab fa-twitter text-primary mx-1 h4"></i
+		        ></a>
+		        <a href=" {{user.profile.facebook}} " class="card-link"
+		          ><i class="fab fa-facebook text-primary mx-1 h4"></i
+		        ></a>
+		        <a href=" {{user.profile.instagram}} " class="card-link"
+		          ><i class="fab fa-instagram text-danger mx-1 h4"></i
+		        ></a>
+		       
+		      </div>
+    		</div>
+          </div>
+      		<div class="col-md-8 col-sm-12 ">
+      			<div class="card shadow">
+	<div class="p-3">
+		<form method="POST" action="{% url 'profile' %}" enctype="multipart/form-data">
+			{% csrf_token %}
+			<fieldset class="form-group">
+				<legend class="border-bottom-mb-4 text-center h3">Profile settings</legend>
+				{{u_form|crispy}}
+				<p></p>
+				{{p_form|crispy}}
+			</fieldset>
+			<div class="form-group mt-2">
+				<button class="btn btn-primary" type="submit">Save Profile</button>
+			</div>
+			
+	</form>
+	</div>
+	
+</div>
+      		</div>
+      	</div>
+        
+      </div>
+    </section>
+{% endblock %}

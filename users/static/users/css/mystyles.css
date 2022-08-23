@@ -1,0 +1,10 @@
+/* POST_LIST */
+
+.form {
+  width: 500px;
+}
+
+#profileCard{
+  width: 300px;
+  clip-path: circle();
+}
